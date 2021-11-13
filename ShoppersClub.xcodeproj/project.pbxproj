@@ -64,8 +64,7 @@
 		451B6ED2273F89EB00BB897D /* ShoppersClub */ = {
 			isa = PBXGroup;
 			children = (
-				4577F8E0273F9A3900004AE2 /* Request */,
-				4577F8D7273F92B700004AE2 /* Response */,
+				4577F8EB273F9B4D00004AE2 /* Model */,
 				451B6ED3273F89EB00BB897D /* AppDelegate.swift */,
 				451B6ED5273F89EB00BB897D /* SceneDelegate.swift */,
 				451B6ED7273F89EB00BB897D /* ViewController.swift */,
@@ -93,6 +92,15 @@
 				4577F8E9273F9AEF00004AE2 /* ItemDelete.swift */,
 			);
 			path = Request;
+			sourceTree = "<group>";
+		};
+		4577F8EB273F9B4D00004AE2 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				4577F8D7273F92B700004AE2 /* Response */,
+				4577F8E0273F9A3900004AE2 /* Request */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
