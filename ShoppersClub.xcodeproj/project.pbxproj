@@ -14,6 +14,7 @@
 		451B6EE0273F89EC00BB897D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 451B6EDE273F89EC00BB897D /* LaunchScreen.storyboard */; };
 		4577F8D4273F92A000004AE2 /* ItemList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4577F8D3273F92A000004AE2 /* ItemList.swift */; };
 		4577F8D6273F92A500004AE2 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4577F8D5273F92A500004AE2 /* Item.swift */; };
+		4577F8E6273F9A5600004AE2 /* ItemRegistration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4577F8E5273F9A5600004AE2 /* ItemRegistration.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		451B6EE1273F89EC00BB897D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4577F8D3273F92A000004AE2 /* ItemList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemList.swift; sourceTree = "<group>"; };
 		4577F8D5273F92A500004AE2 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
+		4577F8E5273F9A5600004AE2 /* ItemRegistration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemRegistration.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +60,7 @@
 		451B6ED2273F89EB00BB897D /* ShoppersClub */ = {
 			isa = PBXGroup;
 			children = (
+				4577F8E0273F9A3900004AE2 /* Request */,
 				4577F8D7273F92B700004AE2 /* Response */,
 				451B6ED3273F89EB00BB897D /* AppDelegate.swift */,
 				451B6ED5273F89EB00BB897D /* SceneDelegate.swift */,
@@ -76,6 +79,14 @@
 				4577F8D5273F92A500004AE2 /* Item.swift */,
 			);
 			path = Response;
+			sourceTree = "<group>";
+		};
+		4577F8E0273F9A3900004AE2 /* Request */ = {
+			isa = PBXGroup;
+			children = (
+				4577F8E5273F9A5600004AE2 /* ItemRegistration.swift */,
+			);
+			path = Request;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -150,6 +161,7 @@
 			files = (
 				4577F8D6273F92A500004AE2 /* Item.swift in Sources */,
 				4577F8D4273F92A000004AE2 /* ItemList.swift in Sources */,
+				4577F8E6273F9A5600004AE2 /* ItemRegistration.swift in Sources */,
 				451B6ED8273F89EB00BB897D /* ViewController.swift in Sources */,
 				451B6ED4273F89EB00BB897D /* AppDelegate.swift in Sources */,
 				451B6ED6273F89EB00BB897D /* SceneDelegate.swift in Sources */,
