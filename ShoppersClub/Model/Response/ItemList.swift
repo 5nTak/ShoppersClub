@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ItemList {
+struct ItemList: Decodable {
     let page: UInt
     let items: [Item]
 }
