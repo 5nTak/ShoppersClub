@@ -79,6 +79,7 @@ class ListTableViewCell: UITableViewCell {
         itemPrice.text = "\(item.currency) \(String(item.price))"
         if let itemsDiscountedPrice = item.discountedPrice {
             itemDiscountedPrice?.text = "\(item.currency) \(String(itemsDiscountedPrice))"
+            itemPrice.textColor = .red
         }
         configureThumbnails(with: item.thumbnails.first!)
     }
@@ -136,21 +137,13 @@ class ListTableViewCell: UITableViewCell {
     }
     
     func itemPriceConstraints() {
-        if itemDiscountedPrice == nil {
-            NSLayoutConstraint.activate([
-                itemPrice.leadingAnchor.constraint(equalTo: thumbnailsImage.trailingAnchor, constant: 10),
-                itemPrice.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10)
-            ])
-        } else {
-            self.contentView.addSubview(itemDiscountedPrice!)
-            itemPrice.textColor = .red
-            NSLayoutConstraint.activate([
-                itemPrice.leadingAnchor.constraint(equalTo: thumbnailsImage.trailingAnchor, constant: 10),
-                itemPrice.trailingAnchor.constraint(equalTo: itemDiscountedPrice!.leadingAnchor, constant: -10),
-                itemPrice.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10),
-                itemDiscountedPrice!.leadingAnchor.constraint(equalTo: itemPrice.trailingAnchor, constant: 10),
-                itemDiscountedPrice!.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10)
-            ])
-        }
+        self.contentView.addSubview(itemDiscountedPrice!)
+        NSLayoutConstraint.activate([
+            itemPrice.leadingAnchor.constraint(equalTo: thumbnailsImage.trailingAnchor, constant: 10),
+            itemPrice.trailingAnchor.constraint(equalTo: itemDiscountedPrice!.leadingAnchor, constant: -10),
+            itemPrice.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10),
+            itemDiscountedPrice!.leadingAnchor.constraint(equalTo: itemPrice.trailingAnchor, constant: 10),
+            itemDiscountedPrice!.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10)
+        ])
     }
 }
