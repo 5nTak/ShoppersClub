@@ -20,6 +20,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        ListTableView.delegate = self
+        ListTableView.dataSource = self
         listTableViewConstraints()
     }
 
