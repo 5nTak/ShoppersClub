@@ -10,6 +10,7 @@ import UIKit
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     var items: [Item] = []
+    let networkManager = NetworkManager()
     let ListTableView: UITableView = {
         let ListTableView = UITableView()
         ListTableView.register(ListTableViewCell.self, forCellReuseIdentifier: ListTableViewCell.cellId)
@@ -22,6 +23,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         view.backgroundColor = .white
         ListTableView.delegate = self
         ListTableView.dataSource = self
+        fetchItems()
         listTableViewConstraints()
     }
 
@@ -46,6 +48,22 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             ListTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             ListTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
+    }
+
+    private func fetchItems() {
+        let url = URL(string: "https://camp-open-market-2.herokuapp.com/items/1")!
+        networkManager.fetchData(url: url) { [weak self] result in
+            switch result {
+            case .success(let data):
+                let itemList = try! JSONDecoder().decode(ItemList.self, from: data)
+                self?.items.append(contentsOf: itemList.items)
+                DispatchQueue.main.async {
+                    self?.ListTableView.reloadData()
+                }
+            case .failure(_):
+                fatalError()
+            }
+        }
     }
 }
 
