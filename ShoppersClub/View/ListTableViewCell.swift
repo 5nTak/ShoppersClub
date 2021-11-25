@@ -28,58 +28,58 @@ class ListTableViewCell: UITableViewCell {
         thumbnailsImage.contentMode = .scaleAspectFit
         return thumbnailsImage
     }()
-    let itemTitle: UILabel = {
-        let itemTitle = UILabel()
-        itemTitle.translatesAutoresizingMaskIntoConstraints = false
-        itemTitle.font = UIFont.preferredFont(forTextStyle: .title2)
-        itemTitle.textColor = .black
-        itemTitle.numberOfLines = 0
-        return itemTitle
+    let itemTitleLabel: UILabel = {
+        let itemTitleLabel = UILabel()
+        itemTitleLabel.translatesAutoresizingMaskIntoConstraints = false
+        itemTitleLabel.font = UIFont.preferredFont(forTextStyle: .title2)
+        itemTitleLabel.textColor = .black
+        itemTitleLabel.numberOfLines = 0
+        return itemTitleLabel
     }()
-    let itemStock: UILabel = {
-        let itemStock = UILabel()
-        itemStock.translatesAutoresizingMaskIntoConstraints = false
-        itemStock.font = UIFont.preferredFont(forTextStyle: .body)
-        itemStock.textColor = .gray
-        return itemStock
+    let itemStockLabel: UILabel = {
+        let itemStockLabel = UILabel()
+        itemStockLabel.translatesAutoresizingMaskIntoConstraints = false
+        itemStockLabel.font = UIFont.preferredFont(forTextStyle: .body)
+        itemStockLabel.textColor = .gray
+        return itemStockLabel
     }()
-    let itemPrice: UILabel = {
-        let itemPrice = UILabel()
-        itemPrice.translatesAutoresizingMaskIntoConstraints = false
-        itemPrice.font = UIFont.preferredFont(forTextStyle: .body)
-        itemPrice.textColor = .gray
-        return itemPrice
+    let itemPriceLabel: UILabel = {
+        let itemPriceLabel = UILabel()
+        itemPriceLabel.translatesAutoresizingMaskIntoConstraints = false
+        itemPriceLabel.font = UIFont.preferredFont(forTextStyle: .body)
+        itemPriceLabel.textColor = .gray
+        return itemPriceLabel
     }()
-    let itemDiscountedPrice: UILabel? = {
-        let itemDiscountedPrice = UILabel()
-        itemDiscountedPrice.translatesAutoresizingMaskIntoConstraints = false
-        itemDiscountedPrice.font = UIFont.preferredFont(forTextStyle: .body)
-        itemDiscountedPrice.textColor = .gray
-        return itemDiscountedPrice
+    let itemDiscountedPriceLabel: UILabel? = {
+        let itemDiscountedPriceLabel = UILabel()
+        itemDiscountedPriceLabel.translatesAutoresizingMaskIntoConstraints = false
+        itemDiscountedPriceLabel.font = UIFont.preferredFont(forTextStyle: .body)
+        itemDiscountedPriceLabel.textColor = .gray
+        return itemDiscountedPriceLabel
     }()
     
     override func prepareForReuse() {
         super.prepareForReuse()
         thumbnailsImage.image = nil
-        if itemStock.text == "품절" {
-            itemStock.textColor = .orange
+        if itemStockLabel.text == "품절" {
+            itemStockLabel.textColor = .orange
         } else {
-            itemStock.textColor = .gray
+            itemStockLabel.textColor = .gray
         }
     }
     
     func configureCell(with item: Item) {
-        itemTitle.text = item.title
+        itemTitleLabel.text = item.title
         if item.stock == 0 {
-            itemStock.text = "품절"
-            itemStock.textColor = .orange
+            itemStockLabel.text = "품절"
+            itemStockLabel.textColor = .orange
         } else {
-            itemStock.text = "재고: \(String(item.stock))"
+            itemStockLabel.text = "재고: \(String(item.stock))"
         }
-        itemPrice.text = "\(item.currency) \(String(item.price))"
-        if let itemsDiscountedPrice = item.discountedPrice {
-            itemDiscountedPrice?.text = "\(item.currency) \(String(itemsDiscountedPrice))"
-            itemPrice.textColor = .red
+        itemPriceLabel.text = "\(item.currency) \(String(item.price))"
+        if let itemDiscountedPrice = item.discountedPrice {
+            itemDiscountedPriceLabel?.text = "\(item.currency) \(String(itemDiscountedPrice))"
+            itemPriceLabel.textColor = .red
         }
         configureThumbnails(with: item.thumbnails.first!)
     }
@@ -101,9 +101,9 @@ class ListTableViewCell: UITableViewCell {
     
     func listCellConstraints() {
         self.contentView.addSubview(thumbnailsImage)
-        self.contentView.addSubview(itemTitle)
-        self.contentView.addSubview(itemStock)
-        self.contentView.addSubview(itemPrice)
+        self.contentView.addSubview(itemTitleLabel)
+        self.contentView.addSubview(itemStockLabel)
+        self.contentView.addSubview(itemPriceLabel)
         thumbnailsConstraints()
         itemTitleConstraints()
         itemStockConstraints()
@@ -114,7 +114,7 @@ class ListTableViewCell: UITableViewCell {
         NSLayoutConstraint.activate([
             thumbnailsImage.topAnchor.constraint(equalTo: self.topAnchor),
             thumbnailsImage.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            thumbnailsImage.trailingAnchor.constraint(equalTo: itemTitle.leadingAnchor, constant: -10),
+            thumbnailsImage.trailingAnchor.constraint(equalTo: itemTitleLabel.leadingAnchor, constant: -10),
             thumbnailsImage.bottomAnchor.constraint(equalTo: self.bottomAnchor),
             thumbnailsImage.widthAnchor.constraint(equalTo: thumbnailsImage.heightAnchor)
         ])
@@ -122,28 +122,28 @@ class ListTableViewCell: UITableViewCell {
     
     func itemTitleConstraints() {
         NSLayoutConstraint.activate([
-            itemTitle.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
-            itemTitle.leadingAnchor.constraint(equalTo: thumbnailsImage.trailingAnchor, constant: 10),
-            itemTitle.trailingAnchor.constraint(equalTo: itemStock.leadingAnchor, constant: -10)
+            itemTitleLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
+            itemTitleLabel.leadingAnchor.constraint(equalTo: thumbnailsImage.trailingAnchor, constant: 10),
+            itemTitleLabel.trailingAnchor.constraint(equalTo: itemStockLabel.leadingAnchor, constant: -10)
         ])
     }
     
     func itemStockConstraints() {
         NSLayoutConstraint.activate([
-            itemStock.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
-            itemStock.leadingAnchor.constraint(equalTo: itemTitle.trailingAnchor, constant: 10),
-            itemStock.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10)
+            itemStockLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
+            itemStockLabel.leadingAnchor.constraint(equalTo: itemTitleLabel.trailingAnchor, constant: 10),
+            itemStockLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10)
         ])
     }
     
     func itemPriceConstraints() {
-        self.contentView.addSubview(itemDiscountedPrice!)
+        self.contentView.addSubview(itemDiscountedPriceLabel!)
         NSLayoutConstraint.activate([
-            itemPrice.leadingAnchor.constraint(equalTo: thumbnailsImage.trailingAnchor, constant: 10),
-            itemPrice.trailingAnchor.constraint(equalTo: itemDiscountedPrice!.leadingAnchor, constant: -10),
-            itemPrice.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10),
-            itemDiscountedPrice!.leadingAnchor.constraint(equalTo: itemPrice.trailingAnchor, constant: 10),
-            itemDiscountedPrice!.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10)
+            itemPriceLabel.leadingAnchor.constraint(equalTo: thumbnailsImage.trailingAnchor, constant: 10),
+            itemPriceLabel.trailingAnchor.constraint(equalTo: itemDiscountedPriceLabel!.leadingAnchor, constant: -10),
+            itemPriceLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10),
+            itemDiscountedPriceLabel!.leadingAnchor.constraint(equalTo: itemPriceLabel.trailingAnchor, constant: 10),
+            itemDiscountedPriceLabel!.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10)
         ])
     }
 }
