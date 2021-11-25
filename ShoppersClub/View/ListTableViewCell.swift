@@ -58,6 +58,16 @@ class ListTableViewCell: UITableViewCell {
         return itemDiscountedPrice
     }()
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        thumbnailsImage.image = nil
+        if itemStock.text == "품절" {
+            itemStock.textColor = .orange
+        } else {
+            itemStock.textColor = .gray
+        }
+    }
+    
     func configureCell(with item: Item) {
         itemTitle.text = item.title
         if item.stock == 0 {
