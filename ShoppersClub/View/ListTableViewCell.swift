@@ -58,6 +58,21 @@ class ListTableViewCell: UITableViewCell {
         return itemDiscountedPrice
     }()
     
+    func configureCell(with item: Item) {
+        itemTitle.text = item.title
+        if item.stock == 0 {
+            itemStock.text = "품절"
+            itemStock.textColor = .orange
+        } else {
+            itemStock.text = "재고: \(String(item.stock))"
+        }
+        itemPrice.text = "\(item.currency) \(String(item.price))"
+        if let itemsDiscountedPrice = item.discountedPrice {
+            itemDiscountedPrice?.text = "\(item.currency) \(String(itemsDiscountedPrice))"
+        }
+        configureThumbnails(with: item.thumbnails.first!)
+    }
+    
     private func configureThumbnails(with path: String) {
         let url = URL(string: path)!
         networkManager.fetchData(url: url) { [weak self] result in
