@@ -14,8 +14,7 @@ struct NetworkManager {
         self.session = session
     }
     
-    func fetchData(completion: @escaping (Result<ItemList, Error>) -> Void) {
-        let url = URL(string: "https://camp-open-market-2.herokuapp.com/")!
+    func fetchData(url: URL, completion: @escaping (Result<Data, Error>) -> Void) {
         let task = URLSession.shared.dataTask(with: url) { data, response, error in
             if error != nil {
                 completion(.failure(NetworkError.unknownError))
@@ -25,7 +24,7 @@ struct NetworkManager {
                 completion(.failure(NetworkError.invalidResponse))
                 return
             }
-            guard (200...399).contains(httpResponse.statusCode) == false else {
+            guard (200...399).contains(httpResponse.statusCode) == true else {
                 completion(.failure(NetworkError.invalidHttpStatusCode))
                 return
             }
@@ -34,13 +33,7 @@ struct NetworkManager {
                 completion(.failure(NetworkError.emptyData))
                 return
             }
-            do {
-                guard let itemDecodingData = try? JSONDecoder().decode(ItemList.self, from: itemData) else { return }
-                completion(.success(itemDecodingData))
-            } catch {
-                completion(.failure(NetworkError.decodingError))
-            }
-            return
+            completion(.success(itemData))
         }
         task.resume()
     }
