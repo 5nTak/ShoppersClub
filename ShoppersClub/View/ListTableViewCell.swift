@@ -58,6 +58,21 @@ class ListTableViewCell: UITableViewCell {
         return itemDiscountedPrice
     }()
     
+    private func configureThumbnails(with path: String) {
+        let url = URL(string: path)!
+        networkManager.fetchData(url: url) { [weak self] result in
+            switch result {
+            case .success(let data):
+                let image = UIImage(data: data)!
+                DispatchQueue.main.async {
+                    self?.thumbnailsImage.image = image
+                }
+            case .failure(_):
+                fatalError()
+            }
+        }
+    }
+    
     func listCellConstraints() {
         self.contentView.addSubview(thumbnailsImage)
         self.contentView.addSubview(itemTitle)
