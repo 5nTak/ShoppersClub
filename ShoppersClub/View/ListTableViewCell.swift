@@ -10,12 +10,107 @@ import UIKit
 class ListTableViewCell: UITableViewCell {
     
     static let cellId = "ListTableViewCell"
+
+    let networkManager = NetworkManager()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        listCellConstraints()
     }
 
     required init?(coder: NSCoder) {
         fatalError()
+    }
+    
+    let thumbnailsImage: UIImageView = {
+        let thumbnailsImage = UIImageView()
+        thumbnailsImage.translatesAutoresizingMaskIntoConstraints = false
+        thumbnailsImage.contentMode = .scaleAspectFit
+        return thumbnailsImage
+    }()
+    let itemTitle: UILabel = {
+        let itemTitle = UILabel()
+        itemTitle.translatesAutoresizingMaskIntoConstraints = false
+        itemTitle.font = UIFont.preferredFont(forTextStyle: .title2)
+        itemTitle.textColor = .black
+        itemTitle.numberOfLines = 0
+        return itemTitle
+    }()
+    let itemStock: UILabel = {
+        let itemStock = UILabel()
+        itemStock.translatesAutoresizingMaskIntoConstraints = false
+        itemStock.font = UIFont.preferredFont(forTextStyle: .body)
+        itemStock.textColor = .gray
+        return itemStock
+    }()
+    let itemPrice: UILabel = {
+        let itemPrice = UILabel()
+        itemPrice.translatesAutoresizingMaskIntoConstraints = false
+        itemPrice.font = UIFont.preferredFont(forTextStyle: .body)
+        itemPrice.textColor = .gray
+        return itemPrice
+    }()
+    let itemDiscountedPrice: UILabel? = {
+        let itemDiscountedPrice = UILabel()
+        itemDiscountedPrice.translatesAutoresizingMaskIntoConstraints = false
+        itemDiscountedPrice.font = UIFont.preferredFont(forTextStyle: .body)
+        itemDiscountedPrice.textColor = .gray
+        return itemDiscountedPrice
+    }()
+    
+    func listCellConstraints() {
+        self.contentView.addSubview(thumbnailsImage)
+        self.contentView.addSubview(itemTitle)
+        self.contentView.addSubview(itemStock)
+        self.contentView.addSubview(itemPrice)
+        thumbnailsConstraints()
+        itemTitleConstraints()
+        itemStockConstraints()
+        itemPriceConstraints()
+    }
+    
+    func thumbnailsConstraints() {
+        NSLayoutConstraint.activate([
+            thumbnailsImage.topAnchor.constraint(equalTo: self.topAnchor),
+            thumbnailsImage.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            thumbnailsImage.trailingAnchor.constraint(equalTo: itemTitle.leadingAnchor, constant: -10),
+            thumbnailsImage.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            thumbnailsImage.widthAnchor.constraint(equalTo: thumbnailsImage.heightAnchor)
+        ])
+    }
+    
+    func itemTitleConstraints() {
+        NSLayoutConstraint.activate([
+            itemTitle.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
+            itemTitle.leadingAnchor.constraint(equalTo: thumbnailsImage.trailingAnchor, constant: 10),
+            itemTitle.trailingAnchor.constraint(equalTo: itemStock.leadingAnchor, constant: -10)
+        ])
+    }
+    
+    func itemStockConstraints() {
+        NSLayoutConstraint.activate([
+            itemStock.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
+            itemStock.leadingAnchor.constraint(equalTo: itemTitle.trailingAnchor, constant: 10),
+            itemStock.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10)
+        ])
+    }
+    
+    func itemPriceConstraints() {
+        if itemDiscountedPrice == nil {
+            NSLayoutConstraint.activate([
+                itemPrice.leadingAnchor.constraint(equalTo: thumbnailsImage.trailingAnchor, constant: 10),
+                itemPrice.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10)
+            ])
+        } else {
+            self.contentView.addSubview(itemDiscountedPrice!)
+            itemPrice.textColor = .red
+            NSLayoutConstraint.activate([
+                itemPrice.leadingAnchor.constraint(equalTo: thumbnailsImage.trailingAnchor, constant: 10),
+                itemPrice.trailingAnchor.constraint(equalTo: itemDiscountedPrice!.leadingAnchor, constant: -10),
+                itemPrice.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10),
+                itemDiscountedPrice!.leadingAnchor.constraint(equalTo: itemPrice.trailingAnchor, constant: 10),
+                itemDiscountedPrice!.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10)
+            ])
+        }
     }
 }
