@@ -33,7 +33,8 @@ class ListTableViewCell: UITableViewCell {
         itemTitleLabel.translatesAutoresizingMaskIntoConstraints = false
         itemTitleLabel.font = UIFont.preferredFont(forTextStyle: .title2)
         itemTitleLabel.textColor = .black
-        itemTitleLabel.numberOfLines = 0
+        itemTitleLabel.numberOfLines = 2
+        itemTitleLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         return itemTitleLabel
     }()
     let itemStockLabel: UILabel = {
@@ -41,6 +42,8 @@ class ListTableViewCell: UITableViewCell {
         itemStockLabel.translatesAutoresizingMaskIntoConstraints = false
         itemStockLabel.font = UIFont.preferredFont(forTextStyle: .body)
         itemStockLabel.textColor = .gray
+        itemStockLabel.textAlignment = .right
+        itemStockLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
         return itemStockLabel
     }()
     let itemPriceLabel: UILabel = {
@@ -74,7 +77,7 @@ class ListTableViewCell: UITableViewCell {
             itemStockLabel.text = "품절"
             itemStockLabel.textColor = .orange
         } else {
-            itemStockLabel.text = "재고: \(String(item.stock))"
+            itemStockLabel.text = "잔여 수량: \(String(item.stock))"
         }
         itemPriceLabel.text = "\(item.currency) \(String(item.price))"
         if let itemDiscountedPrice = item.discountedPrice {
