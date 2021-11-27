@@ -34,7 +34,6 @@ class ListTableViewCell: UITableViewCell {
         itemTitleLabel.font = UIFont.preferredFont(forTextStyle: .title2)
         itemTitleLabel.textColor = .black
         itemTitleLabel.numberOfLines = 2
-        itemTitleLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         return itemTitleLabel
     }()
     let itemStockLabel: UILabel = {
@@ -43,7 +42,6 @@ class ListTableViewCell: UITableViewCell {
         itemStockLabel.font = UIFont.preferredFont(forTextStyle: .body)
         itemStockLabel.textColor = .gray
         itemStockLabel.textAlignment = .right
-        itemStockLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
         return itemStockLabel
     }()
     let itemPriceLabel: UILabel = {
@@ -129,17 +127,17 @@ class ListTableViewCell: UITableViewCell {
     func itemTitleConstraints() {
         NSLayoutConstraint.activate([
             itemTitleLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
-            itemTitleLabel.leadingAnchor.constraint(equalTo: thumbnailsImage.trailingAnchor, constant: 10),
-            itemTitleLabel.trailingAnchor.constraint(equalTo: itemStockLabel.leadingAnchor, constant: -10)
+            itemTitleLabel.trailingAnchor.constraint(equalTo: itemStockLabel.leadingAnchor, constant: -10),
         ])
+        itemTitleLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
     }
     
     func itemStockConstraints() {
         NSLayoutConstraint.activate([
             itemStockLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
-            itemStockLabel.leadingAnchor.constraint(equalTo: itemTitleLabel.trailingAnchor, constant: 10),
             itemStockLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10)
         ])
+        itemStockLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
     }
     
     func itemPriceConstraints() {
@@ -148,7 +146,6 @@ class ListTableViewCell: UITableViewCell {
             itemPriceLabel.leadingAnchor.constraint(equalTo: thumbnailsImage.trailingAnchor, constant: 10),
             itemPriceLabel.trailingAnchor.constraint(equalTo: itemDiscountedPriceLabel!.leadingAnchor, constant: -10),
             itemPriceLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10),
-            itemDiscountedPriceLabel!.leadingAnchor.constraint(equalTo: itemPriceLabel.trailingAnchor, constant: 10),
             itemDiscountedPriceLabel!.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10)
         ])
     }
