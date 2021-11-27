@@ -80,6 +80,9 @@ class ListTableViewCell: UITableViewCell {
         if let itemDiscountedPrice = item.discountedPrice {
             itemDiscountedPriceLabel?.text = "\(item.currency) \(String(itemDiscountedPrice))"
             itemPriceLabel.textColor = .red
+            let strikeOutItemPrice: NSMutableAttributedString = NSMutableAttributedString(string: (itemPriceLabel.text)!)
+            strikeOutItemPrice.addAttribute(.strikethroughStyle, value: NSUnderlineStyle.single.rawValue, range: NSMakeRange(0, strikeOutItemPrice.length))
+            itemPriceLabel.attributedText = strikeOutItemPrice
         }
         configureThumbnails(with: item.thumbnails.first!)
     }
