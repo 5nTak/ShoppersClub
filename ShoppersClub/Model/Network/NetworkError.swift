@@ -14,4 +14,21 @@ enum NetworkError: Error {
     case invalidHttpStatusCode
     case emptyData
     case decodingError
+    
+    var errorDescription: String? {
+        switch self {
+        case .unknownError:
+            return "An unknown error has occurred!"
+        case .invalidURL:
+            return "URL is invalid!"
+        case .invalidResponse:
+            return "HTTPResponse is invalid!"
+        case .invalidHttpStatusCode:
+            return "HTTPStatusCode does not match!"
+        case .emptyData:
+            return "Data is empty!"
+        case .decodingError:
+            return "An error occurred during decoding!"
+        }
+    }
 }

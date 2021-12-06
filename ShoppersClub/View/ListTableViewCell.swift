@@ -90,7 +90,8 @@ class ListTableViewCell: UITableViewCell {
     
     private func configureThumbnails(with path: String) {
         let url = URL(string: path)!
-        networkManager.fetchData(url: url) { [weak self] result in
+        let request = URLRequest(url: url)
+        networkManager.fetchData(request: request) { [weak self] result in
             switch result {
             case .success(let data):
                 let image = UIImage(data: data)!
