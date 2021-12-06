@@ -14,8 +14,8 @@ struct NetworkManager {
         self.session = session
     }
     
-    func fetchData(url: URL, completion: @escaping (Result<Data, Error>) -> Void) {
-        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+    func fetchData(request: URLRequest, completion: @escaping (Result<Data, Error>) -> Void) {
+        let task = session.dataTask(with: request) { data, response, error in
             if error != nil {
                 completion(.failure(NetworkError.unknownError))
                 return
