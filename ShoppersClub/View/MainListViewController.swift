@@ -10,6 +10,7 @@ import UIKit
 class MainListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     var items: [Item] = []
+    var page: UInt = 1
     let networkManager = NetworkManager()
     let networkItem = NetworkItem()
     let listTableView: UITableView = {
@@ -24,6 +25,7 @@ class MainListViewController: UIViewController, UITableViewDelegate, UITableView
         view.backgroundColor = .white
         listTableView.delegate = self
         listTableView.dataSource = self
+        listTableView.prefetchDataSource = self
         listTableViewConstraints()
         fetchGetItems(page: 1)
     }
@@ -67,4 +69,25 @@ class MainListViewController: UIViewController, UITableViewDelegate, UITableView
             }
         }
     }
+}
+
+extension MainListViewController: UITableViewDataSourcePrefetching {
+/// infinity Scoll other way
+//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//        let contentYOffset: CGFloat = scrollView.contentOffset.y
+//
+//        if (scrollView.contentSize.height - scrollView.frame.height) < contentYOffset {
+//            fetchGetItems(page: page)
+//            page += 1
+//        }
+//    }
+    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+        for indexPath in indexPaths {
+            if  items.count == indexPath.row + 2 {
+                self.page += 1
+                fetchGetItems(page: page)
+            }
+        }
+    }
+    
 }
