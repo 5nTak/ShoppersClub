@@ -30,7 +30,7 @@ class NetworkItem {
         return itemData
     }
     
-    /// GET - 목록 조회
+    // MARK: - GET 목록 조회
     func loadItemListRequest(page: UInt) -> URLRequest {
         let requestURL = ShoppersClubAPI.loadItemList(page: page).url
         let request = URLRequest(url: requestURL)
