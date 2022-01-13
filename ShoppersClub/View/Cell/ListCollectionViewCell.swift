@@ -7,14 +7,15 @@
 
 import UIKit
 
-class ListTableViewCell: UITableViewCell {
+class ListCollectionViewCell: UICollectionViewCell {
     
-    static let cellId = "ListTableViewCell"
+    static let cellId = "ListCollectionViewCell"
 
     let networkManager = NetworkManager()
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupCellRound()
         listCellConstraints()
     }
 
@@ -41,7 +42,7 @@ class ListTableViewCell: UITableViewCell {
         itemStockLabel.translatesAutoresizingMaskIntoConstraints = false
         itemStockLabel.font = UIFont.preferredFont(forTextStyle: .body)
         itemStockLabel.textColor = .gray
-        itemStockLabel.textAlignment = .right
+        itemStockLabel.textAlignment = .left
         return itemStockLabel
     }()
     let itemPriceLabel: UILabel = {
@@ -121,33 +122,44 @@ class ListTableViewCell: UITableViewCell {
             thumbnailsImage.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             thumbnailsImage.trailingAnchor.constraint(equalTo: itemTitleLabel.leadingAnchor, constant: -10),
             thumbnailsImage.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-            thumbnailsImage.widthAnchor.constraint(equalTo: thumbnailsImage.heightAnchor)
+            thumbnailsImage.heightAnchor.constraint(equalTo: self.widthAnchor, multiplier: 1/3),
+            thumbnailsImage.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 1/3)
         ])
+        thumbnailsImage.layer.cornerRadius = 10
+        thumbnailsImage.layer.masksToBounds = true
     }
     
     func itemTitleConstraints() {
         NSLayoutConstraint.activate([
             itemTitleLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
-            itemTitleLabel.trailingAnchor.constraint(equalTo: itemStockLabel.leadingAnchor, constant: -10),
+            itemTitleLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10),
         ])
-        itemTitleLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
     }
     
     func itemStockConstraints() {
         NSLayoutConstraint.activate([
-            itemStockLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
+            itemStockLabel.topAnchor.constraint(equalTo: itemTitleLabel.bottomAnchor, constant: 10),
+            itemStockLabel.leadingAnchor.constraint(equalTo: thumbnailsImage.trailingAnchor, constant: 10),
             itemStockLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10)
         ])
-        itemStockLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
     }
     
     func itemPriceConstraints() {
         self.contentView.addSubview(itemDiscountedPriceLabel!)
         NSLayoutConstraint.activate([
+            itemPriceLabel.topAnchor.constraint(equalTo: itemStockLabel.bottomAnchor, constant: 10),
             itemPriceLabel.leadingAnchor.constraint(equalTo: thumbnailsImage.trailingAnchor, constant: 10),
             itemPriceLabel.trailingAnchor.constraint(equalTo: itemDiscountedPriceLabel!.leadingAnchor, constant: -10),
             itemPriceLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10),
             itemDiscountedPriceLabel!.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10)
         ])
+    }
+    
+    func setupCellRound() {
+        layer.shadowColor = UIColor.black.cgColor
+        layer.shadowOpacity = 0.5
+        layer.shadowRadius = 10
+        self.layer.cornerRadius = 15
+        self.layer.masksToBounds = true
     }
 }
