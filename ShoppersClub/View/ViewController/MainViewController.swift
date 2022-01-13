@@ -41,8 +41,9 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        setSegment()
         fetchGetItems(page: 1)
-        collectionViewConstraints()
+        setCollectionView()
     }
     
     func setSegment() {
@@ -64,6 +65,14 @@ class MainViewController: UIViewController {
         }
     }
 
+    // MARK: - CollectionView Constraints
+    func setCollectionView() {
+        view.addSubview(itemCollectionView)
+        itemCollectionView.delegate = self
+        itemCollectionView.dataSource = self
+        collectionViewConstraints()
+    }
+    
     func collectionViewConstraints() {
         NSLayoutConstraint.activate([
             itemCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 5),
