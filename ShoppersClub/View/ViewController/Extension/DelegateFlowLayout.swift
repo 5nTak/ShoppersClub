@@ -18,4 +18,15 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
             return .zero
         }
     }
+    
+    func collectionView(_ collectionVIew: UICollectionView, layout collectionVIewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        switch cellSegmentedControl.selectedSegmentIndex {
+        case 0:
+            return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        case 1:
+            return UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
+        default:
+            return UIEdgeInsets()
+        }
+    }
 }
