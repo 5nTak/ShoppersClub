@@ -73,6 +73,17 @@ class MainViewController: UIViewController {
         collectionViewConstraints()
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cell = collectionView.cellForItem(at: indexPath)
+        cell?.layer.borderWidth = 2
+        cell?.layer.borderColor = UIColor.magenta.cgColor
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        let cell = collectionView.cellForItem(at: indexPath)
+        cell?.layer.borderColor = UIColor.white.cgColor
+    }
+    
     func collectionViewConstraints() {
         NSLayoutConstraint.activate([
             itemCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 5),
