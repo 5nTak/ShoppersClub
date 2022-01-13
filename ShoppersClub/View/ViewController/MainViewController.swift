@@ -29,6 +29,7 @@ class MainViewController: UIViewController {
         return collectionView
     }()
     
+    // MARK: - ViewLifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white

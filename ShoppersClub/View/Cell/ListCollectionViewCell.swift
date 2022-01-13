@@ -7,14 +7,15 @@
 
 import UIKit
 
-class ListTableViewCell: UITableViewCell {
+class ListCollectionViewCell: UICollectionViewCell {
     
-    static let cellId = "ListTableViewCell"
+    static let cellId = "ListCollectionViewCell"
 
     let networkManager = NetworkManager()
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupCellRound()
         listCellConstraints()
     }
 
