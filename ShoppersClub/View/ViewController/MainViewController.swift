@@ -20,6 +20,14 @@ class MainViewController: UIViewController {
     var page: UInt = 1
     
     // MARK: - UI Initialization, Constant
+    let cellSegmentedControl: UISegmentedControl = {
+        let cellSegmentedControl = UISegmentedControl(items: CellStyle.allCases.map { $0.rawValue })
+        cellSegmentedControl.translatesAutoresizingMaskIntoConstraints = false
+        cellSegmentedControl.selectedSegmentIndex = 0
+        cellSegmentedControl.backgroundColor = .white
+        return cellSegmentedControl
+    }()
+    
     let itemCollectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         collectionView.register(ListCollectionViewCell.self, forCellWithReuseIdentifier: ListCollectionViewCell.cellId)
@@ -37,6 +45,25 @@ class MainViewController: UIViewController {
         collectionViewConstraints()
     }
     
+    func setSegment() {
+        for index in 0..<CellStyle.allCases.count {
+            self.cellSegmentedControl.setWidth(self.view.frame.width / 5, forSegmentAt: index)
+        }
+        self.cellSegmentedControl.addTarget(self, action: #selector(changeCellStyle), for: .valueChanged)
+        self.navigationItem.titleView = self.cellSegmentedControl
+    }
+    
+    @objc func changeCellStyle() {
+        switch self.cellSegmentedControl.selectedSegmentIndex {
+        case 0:
+            self.itemCollectionView.reloadData()
+        case 1:
+            self.itemCollectionView.reloadData()
+        default:
+            return
+        }
+    }
+
     func collectionViewConstraints() {
         NSLayoutConstraint.activate([
             itemCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 5),
