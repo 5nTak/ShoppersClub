@@ -15,6 +15,7 @@ class GridCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        setupCellRound()
         gridCellConstraints()
     }
 
@@ -164,5 +165,13 @@ class GridCollectionViewCell: UICollectionViewCell {
     func itemPriceConstraints() {
         self.itemPriceStackView.addArrangedSubview(itemPriceLabel)
         self.itemPriceStackView.addArrangedSubview(itemDiscountedPriceLabel!)
+    }
+    
+    func setupCellRound() {
+        layer.shadowColor = UIColor.black.cgColor
+        layer.shadowOpacity = 0.5
+        layer.shadowRadius = 10
+        self.layer.cornerRadius = 10
+        self.layer.masksToBounds = true
     }
 }

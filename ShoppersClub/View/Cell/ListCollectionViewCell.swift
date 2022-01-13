@@ -15,6 +15,7 @@ class ListCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        setupCellRound()
         listCellConstraints()
     }
 
@@ -152,5 +153,13 @@ class ListCollectionViewCell: UICollectionViewCell {
             itemPriceLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10),
             itemDiscountedPriceLabel!.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10)
         ])
+    }
+    
+    func setupCellRound() {
+        layer.shadowColor = UIColor.black.cgColor
+        layer.shadowOpacity = 0.5
+        layer.shadowRadius = 10
+        self.layer.cornerRadius = 15
+        self.layer.masksToBounds = true
     }
 }
