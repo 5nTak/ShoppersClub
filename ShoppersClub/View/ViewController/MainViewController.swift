@@ -70,6 +70,7 @@ class MainViewController: UIViewController {
         view.addSubview(itemCollectionView)
         itemCollectionView.delegate = self
         itemCollectionView.dataSource = self
+        itemCollectionView.prefetchDataSource = self
         collectionViewConstraints()
     }
     
