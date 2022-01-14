@@ -1,8 +1,8 @@
 //
-//  ListTableViewCell.swift
+//  ListCollectionViewCell.swift
 //  ShoppersClub
 //
-//  Created by 오인탁 on 2021/11/23.
+//  Created by Tak on 2021/11/23.
 //
 
 import UIKit

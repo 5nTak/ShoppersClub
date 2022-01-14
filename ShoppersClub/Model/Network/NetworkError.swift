@@ -2,7 +2,7 @@
 //  NetworkError.swift
 //  ShoppersClub
 //
-//  Created by 오인탁 on 2021/11/20.
+//  Created by Tak on 2021/11/20.
 //
 
 import Foundation

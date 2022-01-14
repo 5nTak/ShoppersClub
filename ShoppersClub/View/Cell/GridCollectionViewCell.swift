@@ -1,8 +1,8 @@
 //
-//  CollectionViewCell.swift
+//  GridCollectionViewCell.swift
 //  ShoppersClub
 //
-//  Created by 오인탁 on 2021/12/07.
+//  Created by Tak on 2021/12/07.
 //
 
 import UIKit
