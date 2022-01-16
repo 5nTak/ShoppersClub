@@ -15,7 +15,6 @@ class MainViewController: UIViewController {
     }
     
     var items: [Item] = []
-    let networkManager = NetworkManager()
     let networkItem = NetworkItem()
     var page: UInt = 1
     
@@ -78,6 +77,9 @@ class MainViewController: UIViewController {
         let cell = collectionView.cellForItem(at: indexPath)
         cell?.layer.borderWidth = 2
         cell?.layer.borderColor = UIColor.magenta.cgColor
+        let detailViewController = DetailViewController()
+        self.navigationController?.pushViewController(detailViewController, animated: true)
+        detailViewController.configureDetailInfo(item: items[indexPath.row])
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
