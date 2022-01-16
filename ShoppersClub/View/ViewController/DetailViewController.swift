@@ -17,6 +17,7 @@ class DetailViewController: UIViewController {
     let imageCollectionView: UICollectionView = {
         let imageCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         imageCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        imageCollectionView.register(DetailImageViewCell.self, forCellWithReuseIdentifier: DetailImageViewCell.cellId)
         return imageCollectionView
     }()
     let itemTitleLabel: UILabel = {
