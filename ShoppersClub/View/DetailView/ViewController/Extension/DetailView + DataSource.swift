@@ -1,5 +1,5 @@
 //
-//  DetailViewController.swift
+//  DetailView + DataSource.swift
 //  ShoppersClub
 //
 //  Created by Tak on 2022/01/17.
