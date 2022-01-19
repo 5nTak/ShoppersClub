@@ -71,7 +71,7 @@ class GridCollectionViewCell: UICollectionViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-//        thumbnailsImage.image = nil
+        thumbnailsImage.image = nil
         if itemStockLabel.text == "품절" {
             itemStockLabel.textColor = .orange
         } else {

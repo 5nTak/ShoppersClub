@@ -17,6 +17,11 @@ class DetailViewController: UIViewController {
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         return scrollView
     }()
+    let contentView: UIView = {
+        let contentView = UIView()
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        return contentView
+    }()
     let imageCollectionView: UICollectionView = {
         let imageCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         imageCollectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -102,12 +107,14 @@ class DetailViewController: UIViewController {
     }
     
     func showDetailInfo() {
-        view.addSubview(scrollView)
-        scrollViewAddSubView()
+        scrollViewLayout()
         detailConstraints()
     }
     
-    func scrollViewAddSubView() {
+    func scrollViewLayout() {
+        view.addSubview(scrollView)
+        scrollViewConstraints()
+        scrollView.addSubview(contentView)
         scrollView.addSubview(imageCollectionView)
         scrollView.addSubview(itemTitleLabel)
         scrollView.addSubview(itemStockLabel)
@@ -117,7 +124,7 @@ class DetailViewController: UIViewController {
     }
     
     func detailConstraints() {
-        scrollViewConstraints()
+        contentViewConstraints()
         imageCollectionViewConstraints()
         itemTitleConstraints()
         itemStockConstraints()
@@ -128,26 +135,36 @@ class DetailViewController: UIViewController {
     
     func scrollViewConstraints() {
         NSLayoutConstraint.activate([
-            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            scrollView.topAnchor.constraint(equalTo: self.view.topAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
+        ])
+    }
+    
+    func contentViewConstraints() {
+        NSLayoutConstraint.activate([
+            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            contentView.heightAnchor.constraint(equalTo: scrollView.heightAnchor)
         ])
     }
     
     func imageCollectionViewConstraints() {
         NSLayoutConstraint.activate([
-            imageCollectionView.topAnchor.constraint(equalTo: scrollView.topAnchor),
-            imageCollectionView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
-            imageCollectionView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            imageCollectionView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            imageCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            imageCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             imageCollectionView.bottomAnchor.constraint(equalTo: itemTitleLabel.topAnchor, constant: -20)
         ])
     }
     
     func itemTitleConstraints() {
         NSLayoutConstraint.activate([
-            itemTitleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
-            itemTitleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            itemTitleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 30),
+            itemTitleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             itemTitleLabel.bottomAnchor.constraint(equalTo: itemStockLabel.topAnchor, constant: 15)
         ])
     }
@@ -155,15 +172,15 @@ class DetailViewController: UIViewController {
     func itemStockConstraints() {
         NSLayoutConstraint.activate([
             itemStockLabel.leadingAnchor.constraint(equalTo: itemTitleLabel.leadingAnchor),
-            itemStockLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            itemStockLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             itemStockLabel.bottomAnchor.constraint(equalTo: itemPriceStackView.topAnchor)
         ])
     }
     
     func itemPriceStackViewConstraints() {
         NSLayoutConstraint.activate([
-            itemPriceStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            itemPriceStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            itemPriceStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            itemPriceStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             itemPriceStackView.bottomAnchor.constraint(equalTo: itemDescription.topAnchor, constant: -20)
         ])
         itemPriceStackView.addArrangedSubview(itemPriceLabel)
@@ -172,17 +189,17 @@ class DetailViewController: UIViewController {
     
     func itemDescriptionConstraints() {
         NSLayoutConstraint.activate([
-            itemDescription.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15),
-            itemDescription.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -15),
+            itemDescription.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
+            itemDescription.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15),
             itemDescription.bottomAnchor.constraint(equalTo: itemRegistrationDateLabel.topAnchor, constant: -30)
         ])
     }
     
     func itemRegistrationConstraints() {
         NSLayoutConstraint.activate([
-            itemRegistrationDateLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
-            itemRegistrationDateLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            itemRegistrationDateLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -10)
+            itemRegistrationDateLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 30),
+            itemRegistrationDateLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            itemRegistrationDateLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10)
         ])
     }
 }
