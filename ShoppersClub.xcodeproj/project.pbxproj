@@ -16,7 +16,7 @@
 		45414264274904220008EB87 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45414263274904220008EB87 /* NetworkError.swift */; };
 		454638DD2791C7CE00FA8101 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454638DC2791C7CE00FA8101 /* DetailViewController.swift */; };
 		454638DF2794697A00FA8101 /* DetailImageViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454638DE2794697A00FA8101 /* DetailImageViewCell.swift */; };
-		454638E927946D6700FA8101 /* DetailVIew + Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454638E827946D6700FA8101 /* DetailVIew + Delegate.swift */; };
+		454638E927946D6700FA8101 /* DetailView + Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454638E827946D6700FA8101 /* DetailView + Delegate.swift */; };
 		454638ED2794713800FA8101 /* DetailView + DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454638EC2794713800FA8101 /* DetailView + DataSource.swift */; };
 		454638EF2794716F00FA8101 /* MainView + DelegateFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454638EE2794716F00FA8101 /* MainView + DelegateFlowLayout.swift */; };
 		454638F12794718A00FA8101 /* MainView + Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454638F02794718A00FA8101 /* MainView + Delegate.swift */; };
@@ -46,7 +46,7 @@
 		45414263274904220008EB87 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		454638DC2791C7CE00FA8101 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		454638DE2794697A00FA8101 /* DetailImageViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailImageViewCell.swift; sourceTree = "<group>"; };
-		454638E827946D6700FA8101 /* DetailVIew + Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DetailVIew + Delegate.swift"; sourceTree = "<group>"; };
+		454638E827946D6700FA8101 /* DetailView + Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DetailView + Delegate.swift"; sourceTree = "<group>"; };
 		454638EC2794713800FA8101 /* DetailView + DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DetailView + DataSource.swift"; sourceTree = "<group>"; };
 		454638EE2794716F00FA8101 /* MainView + DelegateFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainView + DelegateFlowLayout.swift"; sourceTree = "<group>"; };
 		454638F02794718A00FA8101 /* MainView + Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainView + Delegate.swift"; sourceTree = "<group>"; };
@@ -164,7 +164,7 @@
 		454638E727946D4800FA8101 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
-				454638E827946D6700FA8101 /* DetailVIew + Delegate.swift */,
+				454638E827946D6700FA8101 /* DetailView + Delegate.swift */,
 				454638EC2794713800FA8101 /* DetailView + DataSource.swift */,
 			);
 			path = Extension;
@@ -327,7 +327,7 @@
 				4577F8E8273F9AC200004AE2 /* ItemModification.swift in Sources */,
 				451B6ED6273F89EB00BB897D /* SceneDelegate.swift in Sources */,
 				4567A460276080BD002BEF5D /* MainView + DataSourcePreFetching.swift in Sources */,
-				454638E927946D6700FA8101 /* DetailVIew + Delegate.swift in Sources */,
+				454638E927946D6700FA8101 /* DetailView + Delegate.swift in Sources */,
 				45414264274904220008EB87 /* NetworkError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

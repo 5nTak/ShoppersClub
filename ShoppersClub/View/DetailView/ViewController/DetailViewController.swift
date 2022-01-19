@@ -78,7 +78,8 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        navigationController?.navigationBar.backgroundColor = .systemGray6
+        imageCollectionView.delegate = self
+        imageCollectionView.dataSource = self
         showDetailInfo()
         navigationController?.navigationBar.topItem?.backButtonTitle = "상품 목록"
         self.title = "\(itemTitleLabel.text!)"
