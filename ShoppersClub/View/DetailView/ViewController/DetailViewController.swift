@@ -75,6 +75,8 @@ class DetailViewController: UIViewController {
         view.backgroundColor = .white
         navigationController?.navigationBar.backgroundColor = .systemGray6
         showDetailInfo()
+        navigationController?.navigationBar.topItem?.backButtonTitle = "상품 목록"
+        self.title = "\(itemTitleLabel.text!)"
     }
     
     func configureDetailInfo(item: Item) {
