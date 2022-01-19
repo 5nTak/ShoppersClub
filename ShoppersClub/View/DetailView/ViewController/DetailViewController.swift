@@ -79,7 +79,7 @@ class DetailViewController: UIViewController {
     
     func configureDetailInfo(item: Item) {
         let date = Date(timeIntervalSince1970: item.registrationDate)
-        let dateString = DateUtil.formatDate(date)
+        let dateString = date.formatDate(date: date, dateFormat: "yyyy.MM.dd")
         itemTitleLabel.text = item.title
         itemDescription.text = item.descriptions
         itemRegistrationDateLabel.text = dateString
