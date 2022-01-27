@@ -9,8 +9,15 @@ import UIKit
 
 class DetailViewController: UIViewController {
     
-    var item: Item?
+    var item: Item? {
+        didSet {
+            DispatchQueue.main.async {
+                self.imageCollectionView.reloadData()
+            }
+        }
+    }
     let networkManager = NetworkManager()
+    let networkItem = NetworkItem()
     
     let detailScrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -26,6 +33,7 @@ class DetailViewController: UIViewController {
         let imageCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         imageCollectionView.translatesAutoresizingMaskIntoConstraints = false
         imageCollectionView.register(DetailImageViewCell.self, forCellWithReuseIdentifier: DetailImageViewCell.cellId)
+        imageCollectionView.contentMode = .scaleAspectFit
         return imageCollectionView
     }()
     let itemTitleLabel: UILabel = {
@@ -86,6 +94,7 @@ class DetailViewController: UIViewController {
     }
     
     func configureDetailInfo(item: Item) {
+        fetchIDItem(id: item.id)
         let date = Date(timeIntervalSince1970: item.registrationDate)
         let dateString = date.formatDate(date: date, dateFormat: "yyyy.MM.dd")
         itemTitleLabel.text = item.title
@@ -104,6 +113,18 @@ class DetailViewController: UIViewController {
             let strikeOutItemPrice: NSMutableAttributedString = NSMutableAttributedString(string: (itemPriceLabel.text)!)
             strikeOutItemPrice.addAttribute(.strikethroughStyle, value: NSUnderlineStyle.single.rawValue, range: NSMakeRange(0, strikeOutItemPrice.length))
             itemPriceLabel.attributedText = strikeOutItemPrice
+        }
+    }
+    
+    func fetchIDItem(id: UInt) {
+        guard let request = networkItem.loadItemIdRequest(id) else { return }
+        networkItem.fetchItem(request: request) { [weak self] result in
+            switch result {
+            case .success(let data):
+                self?.item = data
+            case .failure(_):
+                fatalError()
+            }
         }
     }
     
@@ -155,6 +176,8 @@ class DetailViewController: UIViewController {
     }
     
     func imageCollectionViewConstraints() {
+        let layout = imageCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
+        layout.scrollDirection = .horizontal
         NSLayoutConstraint.activate([
             imageCollectionView.topAnchor.constraint(equalTo: self.detailContentView.topAnchor),
             imageCollectionView.leadingAnchor.constraint(equalTo: self.detailContentView.leadingAnchor),
