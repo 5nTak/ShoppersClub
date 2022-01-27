@@ -35,7 +35,7 @@ class DetailImageViewCell: UICollectionViewCell {
         networkManager.fetchData(request: request) { [weak self] result in
             switch result {
             case .success(let data):
-                let image = UIImage(data: data)
+                let image = UIImage(data: data)!
                 DispatchQueue.main.async {
                     self?.itemImages.image = image
                 }
@@ -43,6 +43,11 @@ class DetailImageViewCell: UICollectionViewCell {
                 fatalError()
             }
         }
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        itemImages.image = nil
     }
     
     func imagesConstraints() {

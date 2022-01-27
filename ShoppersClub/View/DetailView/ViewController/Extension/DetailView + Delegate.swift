@@ -12,6 +12,7 @@ extension DetailViewController: UICollectionViewDelegate {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DetailImageViewCell.cellId, for: indexPath) as? DetailImageViewCell else { return UICollectionViewCell() }
         guard let images = item?.images else { return UICollectionViewCell() }
         cell.configureItemImages(with: images[indexPath.row])
+        cell.prepareForReuse()
         return cell
     }
 }
