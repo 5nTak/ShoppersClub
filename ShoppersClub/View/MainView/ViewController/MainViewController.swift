@@ -84,6 +84,7 @@ class MainViewController: UIViewController {
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath)
+        cell?.layer.borderWidth = 2
         cell?.layer.borderColor = UIColor.white.cgColor
     }
     
