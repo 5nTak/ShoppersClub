@@ -11,20 +11,17 @@
 		451B6ED6273F89EB00BB897D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 451B6ED5273F89EB00BB897D /* SceneDelegate.swift */; };
 		451B6EDD273F89EC00BB897D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 451B6EDC273F89EC00BB897D /* Assets.xcassets */; };
 		451B6EE0273F89EC00BB897D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 451B6EDE273F89EC00BB897D /* LaunchScreen.storyboard */; };
-		452DB79427A3BB96000F532D /* DetailView + Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452DB79327A3BB96000F532D /* DetailView + Delegate.swift */; };
 		45391A13274CD925006F2B7A /* ListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45391A12274CD925006F2B7A /* ListCollectionViewCell.swift */; };
 		454142622748FABF0008EB87 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454142612748FABF0008EB87 /* NetworkManager.swift */; };
 		45414264274904220008EB87 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45414263274904220008EB87 /* NetworkError.swift */; };
 		454638DD2791C7CE00FA8101 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454638DC2791C7CE00FA8101 /* DetailViewController.swift */; };
 		454638DF2794697A00FA8101 /* DetailImageViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454638DE2794697A00FA8101 /* DetailImageViewCell.swift */; };
-		454638ED2794713800FA8101 /* DetailView + DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454638EC2794713800FA8101 /* DetailView + DataSource.swift */; };
 		454638EF2794716F00FA8101 /* MainView + DelegateFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454638EE2794716F00FA8101 /* MainView + DelegateFlowLayout.swift */; };
 		454638F12794718A00FA8101 /* MainView + Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454638F02794718A00FA8101 /* MainView + Delegate.swift */; };
 		4567A447275F4AC2002BEF5D /* GridCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4567A446275F4AC2002BEF5D /* GridCollectionViewCell.swift */; };
 		4567A45427603A59002BEF5D /* MainView + DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4567A45327603A59002BEF5D /* MainView + DataSource.swift */; };
 		4567A460276080BD002BEF5D /* MainView + DataSourcePreFetching.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4567A45F276080BD002BEF5D /* MainView + DataSourcePreFetching.swift */; };
 		4577000B2797F4470064EF6C /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4577000A2797F4470064EF6C /* Date.swift */; };
-		4577000D27A29F170064EF6C /* DetailView + DelegateFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4577000C27A29F170064EF6C /* DetailView + DelegateFlowLayout.swift */; };
 		4577F8D4273F92A000004AE2 /* ItemList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4577F8D3273F92A000004AE2 /* ItemList.swift */; };
 		4577F8D6273F92A500004AE2 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4577F8D5273F92A500004AE2 /* Item.swift */; };
 		4577F8E6273F9A5600004AE2 /* ItemRegistration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4577F8E5273F9A5600004AE2 /* ItemRegistration.swift */; };
@@ -42,20 +39,17 @@
 		451B6EDC273F89EC00BB897D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		451B6EDF273F89EC00BB897D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		451B6EE1273F89EC00BB897D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		452DB79327A3BB96000F532D /* DetailView + Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DetailView + Delegate.swift"; sourceTree = "<group>"; };
 		45391A12274CD925006F2B7A /* ListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCollectionViewCell.swift; sourceTree = "<group>"; };
 		454142612748FABF0008EB87 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		45414263274904220008EB87 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		454638DC2791C7CE00FA8101 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		454638DE2794697A00FA8101 /* DetailImageViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailImageViewCell.swift; sourceTree = "<group>"; };
-		454638EC2794713800FA8101 /* DetailView + DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DetailView + DataSource.swift"; sourceTree = "<group>"; };
 		454638EE2794716F00FA8101 /* MainView + DelegateFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainView + DelegateFlowLayout.swift"; sourceTree = "<group>"; };
 		454638F02794718A00FA8101 /* MainView + Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainView + Delegate.swift"; sourceTree = "<group>"; };
 		4567A446275F4AC2002BEF5D /* GridCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridCollectionViewCell.swift; sourceTree = "<group>"; };
 		4567A45327603A59002BEF5D /* MainView + DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainView + DataSource.swift"; sourceTree = "<group>"; };
 		4567A45F276080BD002BEF5D /* MainView + DataSourcePreFetching.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainView + DataSourcePreFetching.swift"; sourceTree = "<group>"; };
 		4577000A2797F4470064EF6C /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
-		4577000C27A29F170064EF6C /* DetailView + DelegateFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DetailView + DelegateFlowLayout.swift"; sourceTree = "<group>"; };
 		4577F8D3273F92A000004AE2 /* ItemList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemList.swift; sourceTree = "<group>"; };
 		4577F8D5273F92A500004AE2 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		4577F8E5273F9A5600004AE2 /* ItemRegistration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemRegistration.swift; sourceTree = "<group>"; };
@@ -166,9 +160,6 @@
 		454638E727946D4800FA8101 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
-				4577000C27A29F170064EF6C /* DetailView + DelegateFlowLayout.swift */,
-				452DB79327A3BB96000F532D /* DetailView + Delegate.swift */,
-				454638EC2794713800FA8101 /* DetailView + DataSource.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -310,7 +301,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				4577000B2797F4470064EF6C /* Date.swift in Sources */,
-				454638ED2794713800FA8101 /* DetailView + DataSource.swift in Sources */,
 				45887500275DEF8C00BE331E /* ShoppersClubAPI.swift in Sources */,
 				45887502275DF00100BE331E /* MainViewController.swift in Sources */,
 				45391A13274CD925006F2B7A /* ListCollectionViewCell.swift in Sources */,
@@ -319,10 +309,8 @@
 				454638EF2794716F00FA8101 /* MainView + DelegateFlowLayout.swift in Sources */,
 				458874FE275DEF7E00BE331E /* NetworkItem.swift in Sources */,
 				4577F8D4273F92A000004AE2 /* ItemList.swift in Sources */,
-				452DB79427A3BB96000F532D /* DetailView + Delegate.swift in Sources */,
 				4577F8E6273F9A5600004AE2 /* ItemRegistration.swift in Sources */,
 				454638DF2794697A00FA8101 /* DetailImageViewCell.swift in Sources */,
-				4577000D27A29F170064EF6C /* DetailView + DelegateFlowLayout.swift in Sources */,
 				4567A45427603A59002BEF5D /* MainView + DataSource.swift in Sources */,
 				454638DD2791C7CE00FA8101 /* DetailViewController.swift in Sources */,
 				451B6ED4273F89EB00BB897D /* AppDelegate.swift in Sources */,
