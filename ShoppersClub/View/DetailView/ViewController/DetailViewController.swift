@@ -9,6 +9,7 @@ import UIKit
 
 class DetailViewController: UIViewController {
     
+    // MARK: - DetailView Property
     var item: Item? {
         didSet {
             DispatchQueue.main.async {
@@ -19,6 +20,7 @@ class DetailViewController: UIViewController {
     let networkManager = NetworkManager()
     let networkItem = NetworkItem()
     
+    // MARK: - Parent DetailView
     let detailScrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -39,7 +41,7 @@ class DetailViewController: UIViewController {
     let itemTitleLabel: UILabel = {
         let itemTitleLabel = UILabel()
         itemTitleLabel.translatesAutoresizingMaskIntoConstraints = false
-        itemTitleLabel.font = UIFont.preferredFont(forTextStyle: .title1)
+        itemTitleLabel.font = UIFont.preferredFont(forTextStyle: .largeTitle)
         itemTitleLabel.textAlignment = .left
         return itemTitleLabel
     }()
@@ -78,16 +80,15 @@ class DetailViewController: UIViewController {
     let itemRegistrationDateLabel: UILabel = {
         let itemRegistrationDateLabel = UILabel()
         itemRegistrationDateLabel.translatesAutoresizingMaskIntoConstraints = false
-        itemRegistrationDateLabel.font = UIFont.preferredFont(forTextStyle: .callout)
+        itemRegistrationDateLabel.font = UIFont.preferredFont(forTextStyle: .title3)
         itemRegistrationDateLabel.textColor = .systemGray
         return itemRegistrationDateLabel
     }()
     
+    // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        imageCollectionView.delegate = self
-        imageCollectionView.dataSource = self
         showDetailInfo()
         navigationController?.navigationBar.topItem?.backButtonTitle = "상품 목록"
         self.title = "\(itemTitleLabel.text!)"
@@ -97,6 +98,7 @@ class DetailViewController: UIViewController {
         fetchIDItem(id: item.id)
         let date = Date(timeIntervalSince1970: item.registrationDate)
         let dateString = date.formatDate(date: date, dateFormat: "yyyy.MM.dd")
+        itemRegistrationDateLabel.text = dateString
         itemTitleLabel.text = item.title
         itemDescription.text = item.descriptions
         itemRegistrationDateLabel.text = dateString
@@ -104,7 +106,7 @@ class DetailViewController: UIViewController {
             itemStockLabel.text = "품절"
             itemStockLabel.textColor = .orange
         } else {
-            itemStockLabel.text = "잔여 수량: \(String(item.stock))"
+            itemStockLabel.text = "재고 : \(String(item.stock))"
         }
         itemPriceLabel.text = "\(item.currency) \(String(item.price))"
         if let itemDiscountedPrice = item.discountedPrice {
@@ -129,33 +131,30 @@ class DetailViewController: UIViewController {
     }
     
     func showDetailInfo() {
-        scrollViewLayout()
+        detailScrollViewLayout()
         detailConstraints()
     }
     
-    func scrollViewLayout() {
+    func detailScrollViewLayout() {
         view.addSubview(detailScrollView)
-        scrollViewConstraints()
+        detailScrollViewConstraints()
         detailScrollView.addSubview(detailContentView)
-        detailScrollView.addSubview(imageCollectionView)
-        detailScrollView.addSubview(itemTitleLabel)
-        detailScrollView.addSubview(itemStockLabel)
-        detailScrollView.addSubview(itemDescription)
-        detailScrollView.addSubview(itemRegistrationDateLabel)
-        detailScrollView.addSubview(itemPriceStackView)
+        detailContentViewConstraints()
+        detailContentView.addSubview(imageScrollView)
+        imageScrollViewLayout()
+        detailContentViewLayout()
+//        imageScrollView.addSubview(imageScrollPage)
     }
     
-    func detailConstraints() {
-        contentViewConstraints()
-        imageCollectionViewConstraints()
-        itemTitleConstraints()
-        itemStockConstraints()
-        itemPriceStackViewConstraints()
-        itemDescriptionConstraints()
-        itemRegistrationConstraints()
+    func imageScrollViewLayout() {
+        imageScrollView.addSubview(imageContentView)
+        imageScrollViewConstraints()
+        imageContentView.addSubview(itemImages)
+        imageContentViewConstraints()
+        itemImagesConstraints()
     }
     
-    func scrollViewConstraints() {
+    func detailScrollViewConstraints() {
         NSLayoutConstraint.activate([
             detailScrollView.topAnchor.constraint(equalTo: self.view.topAnchor),
             detailScrollView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
@@ -164,50 +163,83 @@ class DetailViewController: UIViewController {
         ])
     }
     
-    func contentViewConstraints() {
+    func detailContentViewConstraints() {
         NSLayoutConstraint.activate([
             detailContentView.topAnchor.constraint(equalTo: self.detailScrollView.topAnchor),
             detailContentView.leadingAnchor.constraint(equalTo: self.detailScrollView.leadingAnchor),
             detailContentView.trailingAnchor.constraint(equalTo: self.detailScrollView.trailingAnchor),
             detailContentView.bottomAnchor.constraint(equalTo: self.detailScrollView.bottomAnchor),
-            detailContentView.widthAnchor.constraint(equalTo: self.detailScrollView.widthAnchor),
-            detailContentView.heightAnchor.constraint(equalTo: self.detailScrollView.heightAnchor)
+            detailContentView.widthAnchor.constraint(equalTo: self.detailScrollView.widthAnchor)
         ])
     }
     
-    func imageCollectionViewConstraints() {
-        let layout = imageCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
-        layout.scrollDirection = .horizontal
+    func imageScrollViewConstraints() {
         NSLayoutConstraint.activate([
-            imageCollectionView.topAnchor.constraint(equalTo: self.detailContentView.topAnchor),
-            imageCollectionView.leadingAnchor.constraint(equalTo: self.detailContentView.leadingAnchor),
-            imageCollectionView.trailingAnchor.constraint(equalTo: self.detailContentView.trailingAnchor),
-            imageCollectionView.bottomAnchor.constraint(equalTo: itemTitleLabel.topAnchor, constant: -20),
-            imageCollectionView.heightAnchor.constraint(equalTo: imageCollectionView.widthAnchor)
+            imageScrollView.topAnchor.constraint(equalTo: self.detailContentView.topAnchor),
+            imageScrollView.leadingAnchor.constraint(equalTo: self.detailContentView.leadingAnchor),
+            imageScrollView.trailingAnchor.constraint(equalTo: self.detailContentView.trailingAnchor),
+            imageScrollView.heightAnchor.constraint(equalTo: imageScrollView.widthAnchor)
         ])
+    }
+    
+    func imageContentViewConstraints() {
+        NSLayoutConstraint.activate([
+            imageContentView.topAnchor.constraint(equalTo: imageScrollView.topAnchor),
+            imageContentView.leadingAnchor.constraint(equalTo: imageScrollView.leadingAnchor),
+            imageContentView.trailingAnchor.constraint(equalTo: imageScrollView.trailingAnchor),
+            imageContentView.bottomAnchor.constraint(equalTo: imageScrollView.bottomAnchor)
+        ])
+    }
+    
+    func itemImagesConstraints() {
+        NSLayoutConstraint.activate([
+            itemImages.topAnchor.constraint(equalTo: imageContentView.topAnchor),
+            itemImages.leadingAnchor.constraint(equalTo: imageContentView.leadingAnchor),
+            itemImages.trailingAnchor.constraint(equalTo: imageContentView.trailingAnchor),
+            itemImages.bottomAnchor.constraint(equalTo: imageContentView.bottomAnchor),
+            itemImages.widthAnchor.constraint(equalTo: self.view.widthAnchor),
+            itemImages.heightAnchor.constraint(equalTo: self.view.widthAnchor)
+        ])
+    }
+    
+    func detailContentViewLayout() {
+        detailContentView.addSubview(itemTitleLabel)
+        detailContentView.addSubview(itemStockLabel)
+        detailContentView.addSubview(itemPriceStackView)
+        detailContentView.addSubview(itemDescription)
+        detailContentView.addSubview(itemRegistrationDateLabel)
+    }
+    
+    func detailConstraints() {
+        itemTitleConstraints()
+        itemStockConstraints()
+        itemPriceStackViewConstraints()
+        itemDescriptionConstraints()
+        itemRegistrationConstraints()
     }
     
     func itemTitleConstraints() {
         NSLayoutConstraint.activate([
-            itemTitleLabel.leadingAnchor.constraint(equalTo: self.detailContentView.leadingAnchor, constant: 30),
-            itemTitleLabel.trailingAnchor.constraint(equalTo: self.detailContentView.trailingAnchor),
-            itemTitleLabel.bottomAnchor.constraint(equalTo: itemStockLabel.topAnchor, constant: -15)
+            itemTitleLabel.topAnchor.constraint(equalTo: imageScrollView.bottomAnchor, constant: 15),
+            itemTitleLabel.leadingAnchor.constraint(equalTo: detailContentView.leadingAnchor, constant: 25),
+            itemTitleLabel.trailingAnchor.constraint(equalTo: detailContentView.trailingAnchor)
         ])
     }
     
     func itemStockConstraints() {
         NSLayoutConstraint.activate([
-            itemStockLabel.leadingAnchor.constraint(equalTo: self.detailContentView.leadingAnchor),
-            itemStockLabel.trailingAnchor.constraint(equalTo: self.detailContentView.trailingAnchor),
-            itemStockLabel.bottomAnchor.constraint(equalTo: itemPriceStackView.topAnchor, constant: -15)
+            itemStockLabel.topAnchor.constraint(equalTo: itemTitleLabel.bottomAnchor, constant: 15),
+            itemStockLabel.leadingAnchor.constraint(equalTo: detailContentView.leadingAnchor, constant: 10),
+            itemStockLabel.trailingAnchor.constraint(equalTo: detailContentView.trailingAnchor)
         ])
     }
     
     func itemPriceStackViewConstraints() {
         NSLayoutConstraint.activate([
-            itemPriceStackView.leadingAnchor.constraint(equalTo: self.detailContentView.leadingAnchor, constant: 20),
-            itemPriceStackView.trailingAnchor.constraint(equalTo: self.detailContentView.trailingAnchor),
-            itemPriceStackView.bottomAnchor.constraint(equalTo: itemDescription.topAnchor, constant: -20)
+            itemPriceStackView.topAnchor.constraint(equalTo: itemStockLabel.bottomAnchor, constant: 15),
+            itemPriceStackView.leadingAnchor.constraint(equalTo: detailContentView.leadingAnchor, constant: 10),
+            itemPriceStackView.trailingAnchor.constraint(equalTo: detailContentView.trailingAnchor),
+            itemPriceStackView.widthAnchor.constraint(equalToConstant: detailContentView.frame.width - 10)
         ])
         itemPriceStackView.addArrangedSubview(itemPriceLabel)
         itemPriceStackView.addArrangedSubview(itemDiscountedPriceLabel!)
@@ -215,17 +247,18 @@ class DetailViewController: UIViewController {
     
     func itemDescriptionConstraints() {
         NSLayoutConstraint.activate([
-            itemDescription.leadingAnchor.constraint(equalTo: self.detailContentView.leadingAnchor, constant: 15),
-            itemDescription.trailingAnchor.constraint(equalTo: self.detailContentView.trailingAnchor, constant: -15),
-            itemDescription.bottomAnchor.constraint(equalTo: itemRegistrationDateLabel.topAnchor, constant: -30)
-        ])
+            itemDescription.topAnchor.constraint(equalTo: itemPriceStackView.bottomAnchor, constant: 20),
+            itemDescription.leadingAnchor.constraint(equalTo: detailContentView.leadingAnchor, constant: 10),
+            itemDescription.trailingAnchor.constraint(equalTo: detailContentView.trailingAnchor)
+            ])
     }
     
     func itemRegistrationConstraints() {
         NSLayoutConstraint.activate([
-            itemRegistrationDateLabel.leadingAnchor.constraint(equalTo: self.detailContentView.leadingAnchor, constant: 30),
-            itemRegistrationDateLabel.trailingAnchor.constraint(equalTo: self.detailContentView.trailingAnchor),
-            itemRegistrationDateLabel.bottomAnchor.constraint(equalTo: self.detailContentView.bottomAnchor, constant: -10)
+            itemRegistrationDateLabel.topAnchor.constraint(equalTo: itemDescription.bottomAnchor, constant: 10),
+            itemRegistrationDateLabel.leadingAnchor.constraint(equalTo: detailContentView.leadingAnchor, constant: 30),
+            itemRegistrationDateLabel.trailingAnchor.constraint(equalTo: detailContentView.trailingAnchor),
+            itemRegistrationDateLabel.bottomAnchor.constraint(equalTo: detailContentView.bottomAnchor, constant: -15)
         ])
     }
 }
