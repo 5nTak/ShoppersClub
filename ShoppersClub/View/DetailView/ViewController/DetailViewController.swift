@@ -129,14 +129,20 @@ class DetailViewController: UIViewController {
         let dateString = date.formatDate(date: date, dateFormat: "yyyy.MM.dd")
         itemRegistrationDateLabel.text = dateString
         itemTitleLabel.text = item.title
-        itemDescription.text = item.descriptions
-        itemRegistrationDateLabel.text = dateString
+        itemStockUpdate(item: item)
+        itemPriceUpdate(item: item)
+    }
+    
+    func itemStockUpdate(item: Item) {
         if item.stock == 0 {
             itemStockLabel.text = "품절"
             itemStockLabel.textColor = .orange
         } else {
             itemStockLabel.text = "재고 : \(String(item.stock))"
         }
+    }
+    
+    func itemPriceUpdate(item: Item) {
         itemPriceLabel.text = "\(item.currency) \(String(item.price))"
         if let itemDiscountedPrice = item.discountedPrice {
             itemDiscountedPriceLabel?.text = "\(item.currency) \(String(itemDiscountedPrice))"
