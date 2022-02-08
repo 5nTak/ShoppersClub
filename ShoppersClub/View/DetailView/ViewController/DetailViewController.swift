@@ -31,13 +31,40 @@ class DetailViewController: UIViewController {
         contentView.translatesAutoresizingMaskIntoConstraints = false
         return contentView
     }()
-    let imageCollectionView: UICollectionView = {
-        let imageCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
-        imageCollectionView.translatesAutoresizingMaskIntoConstraints = false
-        imageCollectionView.register(DetailImageViewCell.self, forCellWithReuseIdentifier: DetailImageViewCell.cellId)
-        imageCollectionView.contentMode = .scaleAspectFit
-        return imageCollectionView
+    
+    // MARK: - Image ScrollView
+    let imageScrollView: UIScrollView = {
+        let imageScrollView = UIScrollView()
+        imageScrollView.translatesAutoresizingMaskIntoConstraints = false
+//        imageScrollView.layer.borderWidth = 2
+//        imageScrollView.layer.borderColor = UIColor.lightGray.cgColor
+//        imageScrollView.layer.cornerRadius = 20
+        return imageScrollView
     }()
+    let imageContentView: UIView = {
+        let imageContentView = UIView()
+        imageContentView.translatesAutoresizingMaskIntoConstraints = false
+//        imageContentView.layer.shadowColor = UIColor.black.cgColor
+//        imageContentView.layer.shadowOffset = CGSize(width: 0, height: 5)
+//        imageContentView.layer.shadowRadius = 10
+//        imageContentView.layer.shadowOpacity = 0.3
+        return imageContentView
+    }()
+    let imageScrollPage: UIPageControl = {
+        let imageScrollPage = UIPageControl()
+        imageScrollPage.translatesAutoresizingMaskIntoConstraints = false
+        imageScrollPage.currentPageIndicatorTintColor = .purple
+        imageScrollPage.pageIndicatorTintColor = .systemGray
+        return imageScrollPage
+    }()
+    let itemImages: UIImageView = {
+        let itemImages = UIImageView()
+        itemImages.translatesAutoresizingMaskIntoConstraints = false
+        itemImages.contentMode = .scaleAspectFit
+        return itemImages
+    }()
+    
+    // MARK: - DetailView Contents
     let itemTitleLabel: UILabel = {
         let itemTitleLabel = UILabel()
         itemTitleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -67,8 +94,9 @@ class DetailViewController: UIViewController {
     let itemPriceStackView: UIStackView = {
         let itemPriceStackView = UIStackView()
         itemPriceStackView.translatesAutoresizingMaskIntoConstraints = false
-        itemPriceStackView.axis = .horizontal
-        itemPriceStackView.distribution = .fillEqually
+//        itemPriceStackView.axis = .horizontal
+        itemPriceStackView.distribution = .fill
+        itemPriceStackView.spacing = 5
         return itemPriceStackView
     }()
     let itemDescription: UITextView = {
