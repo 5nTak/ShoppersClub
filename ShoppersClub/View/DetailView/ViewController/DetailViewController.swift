@@ -99,10 +99,11 @@ class DetailViewController: UIViewController {
         itemPriceStackView.spacing = 5
         return itemPriceStackView
     }()
-    let itemDescription: UITextView = {
-        let itemDescription = UITextView()
+    let itemDescription: UILabel = {
+        let itemDescription = UILabel()
         itemDescription.translatesAutoresizingMaskIntoConstraints = false
-        itemDescription.font = UIFont.preferredFont(forTextStyle: .body)
+        itemDescription.font = UIFont.preferredFont(forTextStyle: .title2)
+        itemDescription.numberOfLines = 0
         return itemDescription
     }()
     let itemRegistrationDateLabel: UILabel = {
