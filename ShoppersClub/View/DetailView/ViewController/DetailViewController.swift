@@ -123,6 +123,42 @@ class DetailViewController: UIViewController {
         self.title = "\(itemTitleLabel.text!)"
     }
     
+    // MARK: - DetailView Network
+    // MARK: Image Network
+    func configureItemImages(with path: [String]) {
+        for url in path {
+            let url = URL(string: url)!
+            let request = URLRequest(url: url)
+            networkManager.fetchData(request: request) { [weak self] result in
+                switch result {
+                case .success(let item):
+                    let image = UIImage(data: item)!
+                    DispatchQueue.main.async {
+                        self?.itemImages.image = image
+                    }
+                case .failure(_):
+                    fatalError()
+                }
+            }
+        }
+    }
+    
+    func fetchIDItem(id: UInt) {
+        guard let request = networkItem.loadItemIdRequest(id) else { return }
+        networkItem.fetchItem(request: request) { [weak self] result in
+            switch result {
+            case .success(let data):
+                self?.item = data
+                DispatchQueue.main.async {
+                    self?.itemDescription.text = self?.item?.descriptions
+                }
+            case .failure(_):
+                fatalError()
+            }
+        }
+    }
+    
+    // MARK: - View Update
     func configureDetailInfo(item: Item) {
         fetchIDItem(id: item.id)
         let date = Date(timeIntervalSince1970: item.registrationDate)
@@ -152,19 +188,7 @@ class DetailViewController: UIViewController {
             itemPriceLabel.attributedText = strikeOutItemPrice
         }
     }
-    
-    func fetchIDItem(id: UInt) {
-        guard let request = networkItem.loadItemIdRequest(id) else { return }
-        networkItem.fetchItem(request: request) { [weak self] result in
-            switch result {
-            case .success(let data):
-                self?.item = data
-            case .failure(_):
-                fatalError()
-            }
-        }
-    }
-    
+    // MARK: - DetailView Autolayout
     func showDetailInfo() {
         detailScrollViewLayout()
         detailConstraints()
