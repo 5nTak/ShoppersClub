@@ -12,9 +12,8 @@ class DetailViewController: UIViewController {
     // MARK: - DetailView Property
     var item: Item? {
         didSet {
-            DispatchQueue.main.async {
-                self.imageCollectionView.reloadData()
-            }
+            guard let item = item, let images = item.images else { return }
+            self.configureItemImages(with: images)
         }
     }
     let networkManager = NetworkManager()
