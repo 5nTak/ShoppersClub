@@ -35,18 +35,11 @@ class DetailViewController: UIViewController {
     let imageScrollView: UIScrollView = {
         let imageScrollView = UIScrollView()
         imageScrollView.translatesAutoresizingMaskIntoConstraints = false
-//        imageScrollView.layer.borderWidth = 2
-//        imageScrollView.layer.borderColor = UIColor.lightGray.cgColor
-//        imageScrollView.layer.cornerRadius = 20
         return imageScrollView
     }()
     let imageContentView: UIView = {
         let imageContentView = UIView()
         imageContentView.translatesAutoresizingMaskIntoConstraints = false
-//        imageContentView.layer.shadowColor = UIColor.black.cgColor
-//        imageContentView.layer.shadowOffset = CGSize(width: 0, height: 5)
-//        imageContentView.layer.shadowRadius = 10
-//        imageContentView.layer.shadowOpacity = 0.3
         return imageContentView
     }()
     let imageScrollPage: UIPageControl = {
@@ -93,7 +86,6 @@ class DetailViewController: UIViewController {
     let itemPriceStackView: UIStackView = {
         let itemPriceStackView = UIStackView()
         itemPriceStackView.translatesAutoresizingMaskIntoConstraints = false
-//        itemPriceStackView.axis = .horizontal
         itemPriceStackView.distribution = .fill
         itemPriceStackView.spacing = 5
         return itemPriceStackView

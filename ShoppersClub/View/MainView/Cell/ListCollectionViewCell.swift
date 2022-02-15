@@ -72,12 +72,21 @@ class ListCollectionViewCell: UICollectionViewCell {
     
     func configureCell(with item: Item) {
         itemTitleLabel.text = item.title
+        itemStockUpdate(item: item)
+        itemPriceUpdate(item: item)
+        configureThumbnails(with: item.thumbnails.first!)
+    }
+    
+    func itemStockUpdate(item: Item) {
         if item.stock == 0 {
             itemStockLabel.text = "품절"
             itemStockLabel.textColor = .orange
         } else {
             itemStockLabel.text = "잔여 수량: \(String(item.stock))"
         }
+    }
+    
+    func itemPriceUpdate(item: Item) {
         itemPriceLabel.text = "\(item.currency) \(String(item.price))"
         if let itemDiscountedPrice = item.discountedPrice {
             itemDiscountedPriceLabel?.text = "\(item.currency) \(String(itemDiscountedPrice))"
@@ -86,7 +95,6 @@ class ListCollectionViewCell: UICollectionViewCell {
             strikeOutItemPrice.addAttribute(.strikethroughStyle, value: NSUnderlineStyle.single.rawValue, range: NSMakeRange(0, strikeOutItemPrice.length))
             itemPriceLabel.attributedText = strikeOutItemPrice
         }
-        configureThumbnails(with: item.thumbnails.first!)
     }
     
     private func configureThumbnails(with path: String) {
