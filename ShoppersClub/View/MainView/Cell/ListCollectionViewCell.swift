@@ -23,6 +23,7 @@ class ListCollectionViewCell: UICollectionViewCell {
         fatalError()
     }
     
+    // MARK: - Cell Property
     let thumbnailsImage: UIImageView = {
         let thumbnailsImage = UIImageView()
         thumbnailsImage.translatesAutoresizingMaskIntoConstraints = false
@@ -60,6 +61,7 @@ class ListCollectionViewCell: UICollectionViewCell {
         return itemDiscountedPriceLabel
     }()
     
+    // MARK: - UI Update
     override func prepareForReuse() {
         super.prepareForReuse()
         thumbnailsImage.image = nil
@@ -97,6 +99,7 @@ class ListCollectionViewCell: UICollectionViewCell {
         }
     }
     
+    // MARK: - Networking
     private func configureThumbnails(with path: String) {
         let url = URL(string: path)!
         let request = URLRequest(url: url)
@@ -113,6 +116,7 @@ class ListCollectionViewCell: UICollectionViewCell {
         }
     }
     
+    // MARK: - Item Autolayout
     func listCellConstraints() {
         self.contentView.addSubview(thumbnailsImage)
         self.contentView.addSubview(itemTitleLabel)

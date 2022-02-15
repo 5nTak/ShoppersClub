@@ -115,7 +115,6 @@ class DetailViewController: UIViewController {
     }
     
     // MARK: - DetailView Network
-    // MARK: Image Network
     func configureItemImages(with path: [String]) {
         for url in path {
             let url = URL(string: url)!
@@ -193,7 +192,6 @@ class DetailViewController: UIViewController {
         detailContentView.addSubview(imageScrollView)
         imageScrollViewLayout()
         detailContentViewLayout()
-//        imageScrollView.addSubview(imageScrollPage)
     }
     
     func imageScrollViewLayout() {

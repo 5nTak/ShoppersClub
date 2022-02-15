@@ -22,7 +22,8 @@ class GridCollectionViewCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError()
     }
-    // MARK: - UI Initializer, Constant
+    
+    // MARK: - Cell Property
     let thumbnailsImage: UIImageView = {
         let thumbnailsImage = UIImageView()
         thumbnailsImage.translatesAutoresizingMaskIntoConstraints = false
@@ -69,6 +70,7 @@ class GridCollectionViewCell: UICollectionViewCell {
         return itemPriceStackView
     }()
     
+    // MARK: - UI Update
     override func prepareForReuse() {
         super.prepareForReuse()
         thumbnailsImage.image = nil
@@ -106,6 +108,7 @@ class GridCollectionViewCell: UICollectionViewCell {
         }
     }
     
+    // MARK: - Networking
     private func configureThumbnails(with path: String) {
         let url = URL(string: path)!
         let request = URLRequest(url: url)
@@ -122,6 +125,7 @@ class GridCollectionViewCell: UICollectionViewCell {
         }
     }
     
+    // MARK: - Item Autolayout
     func gridCellConstraints() {
         self.contentView.addSubview(thumbnailsImage)
         self.contentView.addSubview(itemTitleLabel)
