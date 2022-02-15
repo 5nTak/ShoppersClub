@@ -1,28 +1,29 @@
 //
-//  ListCollectionViewCell.swift
+//  GridCollectionViewCell.swift
 //  ShoppersClub
 //
-//  Created by Tak on 2021/11/23.
+//  Created by Tak on 2021/12/07.
 //
 
 import UIKit
 
-class ListCollectionViewCell: UICollectionViewCell {
+class GridCollectionViewCell: UICollectionViewCell {
     
-    static let cellId = "ListCollectionViewCell"
+    static let cellId = "GridCollectionViewCell"
 
     let networkManager = NetworkManager()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupCellRound()
-        listCellConstraints()
+        gridCellConstraints()
     }
 
     required init?(coder: NSCoder) {
         fatalError()
     }
     
+    // MARK: - Cell Property
     let thumbnailsImage: UIImageView = {
         let thumbnailsImage = UIImageView()
         thumbnailsImage.translatesAutoresizingMaskIntoConstraints = false
@@ -32,34 +33,44 @@ class ListCollectionViewCell: UICollectionViewCell {
     let itemTitleLabel: UILabel = {
         let itemTitleLabel = UILabel()
         itemTitleLabel.translatesAutoresizingMaskIntoConstraints = false
-        itemTitleLabel.font = UIFont.preferredFont(forTextStyle: .title2)
+        itemTitleLabel.font = UIFont.preferredFont(forTextStyle: .body)
         itemTitleLabel.textColor = .black
+        itemTitleLabel.textAlignment = .center
         itemTitleLabel.numberOfLines = 2
         return itemTitleLabel
     }()
     let itemStockLabel: UILabel = {
         let itemStockLabel = UILabel()
         itemStockLabel.translatesAutoresizingMaskIntoConstraints = false
-        itemStockLabel.font = UIFont.preferredFont(forTextStyle: .body)
+        itemStockLabel.font = UIFont.preferredFont(forTextStyle: .caption1)
         itemStockLabel.textColor = .gray
-        itemStockLabel.textAlignment = .left
+        itemStockLabel.textAlignment = .center
         return itemStockLabel
     }()
     let itemPriceLabel: UILabel = {
         let itemPriceLabel = UILabel()
         itemPriceLabel.translatesAutoresizingMaskIntoConstraints = false
-        itemPriceLabel.font = UIFont.preferredFont(forTextStyle: .body)
+        itemPriceLabel.font = UIFont.preferredFont(forTextStyle: .callout)
         itemPriceLabel.textColor = .gray
         return itemPriceLabel
     }()
     let itemDiscountedPriceLabel: UILabel? = {
         let itemDiscountedPriceLabel = UILabel()
         itemDiscountedPriceLabel.translatesAutoresizingMaskIntoConstraints = false
-        itemDiscountedPriceLabel.font = UIFont.preferredFont(forTextStyle: .body)
+        itemDiscountedPriceLabel.font = UIFont.preferredFont(forTextStyle: .callout)
         itemDiscountedPriceLabel.textColor = .gray
+        itemDiscountedPriceLabel.textAlignment = .center
         return itemDiscountedPriceLabel
     }()
+    let itemPriceStackView: UIStackView = {
+        let itemPriceStackView = UIStackView()
+        itemPriceStackView.translatesAutoresizingMaskIntoConstraints = false
+        itemPriceStackView.axis = .vertical
+        itemPriceStackView.alignment = .center
+        return itemPriceStackView
+    }()
     
+    // MARK: - UI Update
     override func prepareForReuse() {
         super.prepareForReuse()
         thumbnailsImage.image = nil
@@ -72,12 +83,21 @@ class ListCollectionViewCell: UICollectionViewCell {
     
     func configureCell(with item: Item) {
         itemTitleLabel.text = item.title
+        itemStockUpdate(item: item)
+        itemPriceUpdate(item: item)
+        configureThumbnails(with: item.thumbnails.first!)
+    }
+    
+    func itemStockUpdate(item: Item) {
         if item.stock == 0 {
             itemStockLabel.text = "품절"
             itemStockLabel.textColor = .orange
         } else {
             itemStockLabel.text = "잔여 수량: \(String(item.stock))"
         }
+    }
+    
+    func itemPriceUpdate(item: Item) {
         itemPriceLabel.text = "\(item.currency) \(String(item.price))"
         if let itemDiscountedPrice = item.discountedPrice {
             itemDiscountedPriceLabel?.text = "\(item.currency) \(String(itemDiscountedPrice))"
@@ -86,9 +106,9 @@ class ListCollectionViewCell: UICollectionViewCell {
             strikeOutItemPrice.addAttribute(.strikethroughStyle, value: NSUnderlineStyle.single.rawValue, range: NSMakeRange(0, strikeOutItemPrice.length))
             itemPriceLabel.attributedText = strikeOutItemPrice
         }
-        configureThumbnails(with: item.thumbnails.first!)
     }
     
+    // MARK: - Networking
     private func configureThumbnails(with path: String) {
         let url = URL(string: path)!
         let request = URLRequest(url: url)
@@ -105,25 +125,25 @@ class ListCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    func listCellConstraints() {
+    // MARK: - Item Autolayout
+    func gridCellConstraints() {
         self.contentView.addSubview(thumbnailsImage)
         self.contentView.addSubview(itemTitleLabel)
         self.contentView.addSubview(itemStockLabel)
-        self.contentView.addSubview(itemPriceLabel)
+        self.contentView.addSubview(itemPriceStackView)
         thumbnailsConstraints()
         itemTitleConstraints()
         itemStockConstraints()
-        itemPriceConstraints()
+        itemPriceStackViewConstraints()
     }
     
     func thumbnailsConstraints() {
         NSLayoutConstraint.activate([
-            thumbnailsImage.topAnchor.constraint(equalTo: self.topAnchor),
-            thumbnailsImage.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            thumbnailsImage.trailingAnchor.constraint(equalTo: itemTitleLabel.leadingAnchor, constant: -10),
-            thumbnailsImage.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-            thumbnailsImage.heightAnchor.constraint(equalTo: self.widthAnchor, multiplier: 1/3),
-            thumbnailsImage.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 1/3)
+            thumbnailsImage.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 5),
+            thumbnailsImage.bottomAnchor.constraint(equalTo: itemTitleLabel.topAnchor, constant: -5),
+            thumbnailsImage.widthAnchor.constraint(equalTo: self.contentView.widthAnchor, multiplier: 2/5),
+            thumbnailsImage.heightAnchor.constraint(equalTo: thumbnailsImage.widthAnchor),
+            thumbnailsImage.centerXAnchor.constraint(equalTo: self.contentView.centerXAnchor)
         ])
         thumbnailsImage.layer.cornerRadius = 10
         thumbnailsImage.layer.masksToBounds = true
@@ -131,35 +151,39 @@ class ListCollectionViewCell: UICollectionViewCell {
     
     func itemTitleConstraints() {
         NSLayoutConstraint.activate([
-            itemTitleLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
-            itemTitleLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10),
+            itemTitleLabel.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor),
+            itemTitleLabel.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor),
+            itemTitleLabel.bottomAnchor.constraint(equalTo: itemStockLabel.topAnchor, constant: -5)
         ])
     }
     
     func itemStockConstraints() {
         NSLayoutConstraint.activate([
-            itemStockLabel.topAnchor.constraint(equalTo: itemTitleLabel.bottomAnchor, constant: 10),
-            itemStockLabel.leadingAnchor.constraint(equalTo: thumbnailsImage.trailingAnchor, constant: 10),
-            itemStockLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10)
+            itemStockLabel.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor),
+            itemStockLabel.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor),
+            itemStockLabel.bottomAnchor.constraint(equalTo: itemPriceStackView.topAnchor, constant: -5)
         ])
     }
     
-    func itemPriceConstraints() {
-        self.contentView.addSubview(itemDiscountedPriceLabel!)
+    func itemPriceStackViewConstraints() {
         NSLayoutConstraint.activate([
-            itemPriceLabel.topAnchor.constraint(equalTo: itemStockLabel.bottomAnchor, constant: 10),
-            itemPriceLabel.leadingAnchor.constraint(equalTo: thumbnailsImage.trailingAnchor, constant: 10),
-            itemPriceLabel.trailingAnchor.constraint(equalTo: itemDiscountedPriceLabel!.leadingAnchor, constant: -10),
-            itemPriceLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10),
-            itemDiscountedPriceLabel!.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10)
+            itemPriceStackView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor),
+            itemPriceStackView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor),
+            itemPriceStackView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -5)
         ])
+        itemPriceConstraints()
+    }
+    
+    func itemPriceConstraints() {
+        self.itemPriceStackView.addArrangedSubview(itemPriceLabel)
+        self.itemPriceStackView.addArrangedSubview(itemDiscountedPriceLabel!)
     }
     
     func setupCellRound() {
         layer.shadowColor = UIColor.black.cgColor
         layer.shadowOpacity = 0.5
         layer.shadowRadius = 10
-        self.layer.cornerRadius = 15
+        self.layer.cornerRadius = 10
         self.layer.masksToBounds = true
     }
 }

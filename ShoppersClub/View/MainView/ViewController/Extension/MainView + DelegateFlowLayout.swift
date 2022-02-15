@@ -1,5 +1,5 @@
 //
-//  MainViewController.swift
+//  MainView + DelegateFlowLayout.swift
 //  ShoppersClub
 //
 //  Created by Tak on 2021/12/08.
